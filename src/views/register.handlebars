@@ -1,0 +1,58 @@
+<div class="mt-2 container">
+    <h1 class="mt-5" style="color: #7489ab">Registrate</h1>
+    <div class=" mt-5">
+<form class="row g-3" id="formRegister" style=" border-color: #7489ab; border-style: solid;
+    border-radius: 20px 20px 20px 20px;
+    padding: 5px;
+    padding-bottom: 5px;">
+  <div class="col-md-6 " >
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail"  placeholder="Email">
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Password</label>
+    <input type="password" class="form-control" id="inputPassword"  placeholder="Password">
+  </div>
+  <div class="col-md-3">
+    <label for="inputName" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="inputName" placeholder="Name">
+  </div>
+  <div class="col-md-3">
+    <label for="inputLastName" class="form-label">Apellidos</label>
+    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+  </div>
+  <div class="col-md-3">
+    <label for="inputAge" class="form-label" >Edad</label>
+    <input type="number" class="form-control" id="inputAge"  placeholder="Edad">
+  </div>
+  <div class="col-md-3">
+    <label for="inputRol" class="form-label">Rol</label>
+    <select id="inputRol" class="form-select">
+      <option selected>Selecciona...</option>
+      <option>Administrador</option>
+      <option>Usuario</option>
+      <option>Premium</option>
+    </select>
+  </div>
+  {{!-- <div class="col-md-2">
+    <label for="inputZip" class="form-label">Zip</label>
+    <input type="text" class="form-control" id="inputZip">
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div> --}}
+  <div class="col-12" style="padding-bottom: 14px;">
+    <button  id="registrarUsu" class="btn btn-primary">Registrarme</button>
+    <button id="login" class="btn btn-secondary"  >Login</button>
+  </div>
+</form>
+    </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./js/register.js"></script>

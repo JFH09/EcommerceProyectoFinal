@@ -1,0 +1,35 @@
+<div>
+<br>
+<br>
+    <div class="container">
+        <div class="card text-center">
+          <div class="card-header">
+            Tu Factura <span id="ticketId">{{ticket_id}}</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{user}}</h5>
+            <p class="card-text">Fecha de compra: <span>{{purchase_dataTime}}</span></p>
+            <p class="card-text">Tus Productos: </p>
+            {{#each infoPurchase}}
+            <p class="card-text"><span>{{this}}</span></p>
+            {{/each}}
+            <hr>
+            <p class="card-text">Total a pagar: <span>{{amount}}</span></p>
+            <hr>
+            <a href="#" class="btn btn-primary" id="pagar">Pagar</a>
+          </div>
+        <div class="card-footer text-body-secondary">
+          TicketCode: <span id="tickedCode">{{ticketCode}}</span>  Ticket Vence en <span style="color: brown">(10min)</span>: {{ticketCode_expireAt}}
+        <span style="display: none;">{{ticketCode_id}}</span>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped bg-info " id="barra" role="progressbar" style="width: 90%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><span id="tiempo">00:00</span></div>
+    </div>
+  </div>
+</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/purchase.js"></script>

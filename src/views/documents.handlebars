@@ -1,0 +1,61 @@
+<div>
+    <button class="btn btn-secondary" type="button" onclick="atras()" style="width: 18%;">Atras</button>
+    <br>
+    <h1 style="text-align: center">Complete su perfil </h1>
+        <div class="container">
+        <div class="card text-center">
+          <div class="card-header">
+            <h5>Cargue los archivos:  <span id="userId"></span></h5>
+          </div>
+          <div class="card-body row">
+                <form id="profilesForm" class="col-6">
+                    <div class="mb-3" >
+                        <label for="formFileProfile" class="form-label">Imagen de perfil</label>
+                        <input class="form-control" type="file" id="formFileProfile" name="documento">
+                        <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'profiles')" style="width: 100%;">Subir Archivo</button> 
+                    </div>
+                </form>
+                
+                <form id="productsForm" class="col-6">
+                    <div class="mb-3">
+                        <label for="formFileProduct" class="form-label">Imagen de producto</label>
+                        <input class="form-control" type="file" id="formFileProduct" name="documento">
+                        <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'products')" style="width: 100%;">Subir Archivo</button> 
+                    </div>
+                </form>
+                <hr>
+                <form id="documentsidentificacionForm" class="col-6">
+                    <div class="mb-3" >
+                        <label for="formFileIdentificacion" class="form-label">Documento de Identificación</label>
+                        <input class="form-control" type="file" id="formFileIdentificacion" name="documento">
+                         <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'documentsidentificacion')" style="width: 100%;">Subir Archivo</button> 
+                    </div>
+                </form>
+                <form id="documentscomprobanteDomicilioForm" class="col-6">
+                    <div class="mb-3">
+                        <label for="formFileComprobanteDomicilio" class="form-label">Comprobante de Domicilio</label>
+                        <input class="form-control" type="file" id="formFileComprobanteDomicilio" name="documento">
+                         <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'documentscomprobanteDomicilio')" style="width: 100%;">Subir Archivo</button> 
+                    </div>
+                </form>
+                <hr>
+                <form id="documentscomprobanteEstadoCuentaForm">
+                    <div class="" style="padding-right: 25%; padding-left: 25%;">
+                        <label for="formFileComprobanteEstadoCuenta" class="form-label">Comprobante de estado de cuenta</label>
+                        <input class="form-control" type="file" id="formFileComprobanteEstadoCuenta" name="documento">
+                         <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'documentscomprobanteEstadoCuenta')" style="width: 100%;">Subir Archivo</button> 
+                    </div>
+                </form>
+                
+          </div>
+        <div class="card-footer text-body-secondary">
+            <span id="tickedCode">{{user.id}}</span>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/documentsUser.js"></script>

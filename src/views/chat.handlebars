@@ -1,0 +1,23 @@
+<div style="text-align: center;">
+    <h1 id="titulo">Chat de <span id="firstNameUser">{{user.first_name}}</span></h1>
+
+    <div id="nuevoMensaje" style="align-self: center;">
+        <input type="text" name="mensaje" id="mensaje">
+        <button class="btn btn-primary m-1" id="sendMessage">Enviar Mensaje</button>
+        <button class="btn btn-secondary m-1" onclick="getMessages()">Obtener Mensajes</button>
+    </div>
+
+
+    <div class="card mb-3 " style="max-width: 90%; background-color:black; color:white; height: 70vh; left: 5%; " >
+        <div class="card-header" id="tituloChat">email: {{user.email}} cuenta:<span id="rol">{{user.rol}}</span></div>
+            <div id="contenedorMensajes" style="overflow: overlay; ">
+
+            </div>
+        </div> 
+        <button class="btn btn-danger m-1" id="volver">Volver a panel principal</button>
+    </div>
+    
+</div>
+<script src="/src/dao/chat.manager.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/chat.js"></script>

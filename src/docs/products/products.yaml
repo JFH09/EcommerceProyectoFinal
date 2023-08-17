@@ -1,0 +1,427 @@
+openapi: "3.0.1"
+info:
+  title: API PRODUCTS
+  version: "1.0"
+paths:
+  /api/products/{id}:
+    get:
+      summary: Obtienen un producto por medio del parametro id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: El producto se obtuvo correctamente
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Product"
+    put:
+      summary: Actualiza un producto por medio del id, se le envia el producto a actualizar por el body
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+        - name: product
+          in: body
+          required: true
+          description: Objeto del producto con toda su info(title, description, price, thumbnail, code, stock)
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              price:
+                type: string
+              thumbnail:
+                type: string
+              code:
+                type: string
+              stock:
+                type: string
+              owner:
+                type: string
+      responses:
+        "200":
+          description: El producto se actualizo correctamente
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/updateProduct"
+        "400":
+          description: Producto no existente.
+        "401":
+          description: No tiene el perfil adecuado para la peticion probar con admin, premium o usuario
+    delete:
+      summary: Elimina un producto por medio del id del producto
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: El producto se elimino correctamente
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Product"
+  /api/products/product/{product}:
+    get:
+      summary: Obtienen un producto por medio del parametro nombre
+      tags:
+        - Products
+      parameters:
+        - name: product
+          in: path
+          required: true
+          description: nombre del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: El producto se obtuvo correctamente
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Product"
+  /api/products/user/{id}:
+    put:
+      summary: Actualiza un producto por medio del id del usuario, se le envia el producto a actualizar por el body
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+        - name: product
+          in: body
+          required: true
+          description: Objeto del producto con toda su info(title, description, price, thumbnail, code, stock)
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              price:
+                type: string
+              thumbnail:
+                type: string
+              code:
+                type: string
+              stock:
+                type: string
+              owner:
+                type: string
+      responses:
+        "200":
+          description: El producto se actualizo correctamente
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/updateProduct"
+        "400":
+          description: Producto no existente.
+        "401":
+          description: No tiene el perfil adecuado para la peticion probar con admin, premium o usuario
+  /api/products/:
+    post:
+      summary: Agrega un nuevo producto en la base, se le envia el producto por medio del body
+      tags:
+        - Products
+      parameters:
+        - name: product
+          in: body
+          required: true
+          description: Objeto del producto con toda su info(title, description, price, thumbnail, code, stock) - el id es automatico
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              price:
+                type: string
+              thumbnail:
+                type: string
+              code:
+                type: string
+              stock:
+                type: string
+              owner:
+                type: string
+      responses:
+        "200":
+          description: El producto se creo correctamente
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/postProduct"
+        "400":
+          description: Producto no existente.
+        "401":
+          description: No tiene el perfil adecuado para la peticion probar con admin, premium o usuario
+  /api/products/productsList:
+    get:
+      summary: Obtienen todos los Productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Todos los productos fueron obtenidos
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Products"
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        docs:
+          type: array
+          description: Contiene toda la lista de productos (objetos)
+        totalDocs:
+          type: String
+          description: Cantidad total de productos
+        limit:
+          type: String
+          description: Limite de productos que se mostraran por pagina
+        totalPages:
+          type: String
+          description: total de paginas resultantes
+        page:
+          type: String
+          description: pagina actual
+        pagingCounter:
+          type: String
+          description: contador de paginas
+        hasPrevPage:
+          type: Boolean
+          description: si es true existe una pagina anterior en la que esta
+        hasNextPage:
+          type: String
+          description: Si es true, existe una pagina siguiente, es decir que hay mas docs despues de esta
+        prevPage:
+          type: String
+          description: indica el numero de la pagina anterior
+        nextPage:
+          type: String
+          description: indica el numero de la pagina siguiente
+      example:
+        Products:
+          type: object
+          properties:
+            docs:
+              [
+                {
+                  _id: new ObjectId("64cec74df1c6bd2c1dfd4970"),
+                  title: "Naranja",
+                  description: "Fruta",
+                  price: "2.33",
+                  thumbnail: "rutaNaranja.png",
+                  code: "fruta#44",
+                  stock: "10",
+                  owner: "ADMIN",
+                  __v: 0,
+                },
+                {
+                  _id: new ObjectId("64cec5849e98da720ab15a21"),
+                  title: "agua",
+                  description: "bebida",
+                  price: "2.66",
+                  thumbnail: "rutaAGUA.png",
+                  code: "bebidas#543",
+                  stock: "78",
+                  owner: "ADMIN",
+                  __v: 0,
+                },
+                {
+                  _id: new ObjectId("64ced0d02dc6dc2141757767"),
+                  title: "Arroz",
+                  description: "Despensa",
+                  price: "3.22",
+                  thumbnail: "rutaARROZ.png",
+                  code: "despensa#44552",
+                  stock: "28",
+                  owner: "ADMIN",
+                  __v: 0,
+                },
+                {
+                  _id: new ObjectId("64cec5bd9e98da720ab15a38"),
+                  title: "Azucar",
+                  description: "Despensa",
+                  price: "3.44",
+                  thumbnail: "rutaAzucar.png",
+                  code: "azucar#222",
+                  stock: "80",
+                  owner: "PREMIUM 64ce8e5a3040b4124ddb50c9",
+                  __v: 0,
+                },
+                {
+                  _id: new ObjectId("64ced06b2dc6dc2141757750"),
+                  title: "Queso",
+                  description: "Despensa",
+                  price: "66.4",
+                  thumbnail: "rutaQueso.png",
+                  code: "despensa#3334422",
+                  stock: "205",
+                  owner: "PREMIUM 64cecfcb2dc6dc21417576de",
+                  __v: 0,
+                },
+              ]
+            totalDocs: 5,
+            limit: 10,
+            totalPages: 1,
+            page: 1,
+            pagingCounter: 1,
+            hasPrevPage: false,
+            hasNextPage: false,
+            prevPage: null,
+            nextPage: null,
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id el cual genera automaticamente mongo
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripcion del producto
+        price:
+          type: string
+          description: Precio del producto
+        thumbnail:
+          type: string
+          description: Ruta de imagen del producto
+        code:
+          type: string
+          description: Codigo el cual no se debe repetir del producto
+        stock:
+          type: string
+          description: Cantidad de productos que hay en alamcen por vender
+        owner:
+          type: string
+          description: Persona que creo el producto (si es userPremium se coloca el id, sino lo es, por defecto se coloca ADMIN)
+      example:
+        _id: ObjectId("64cec5849e98da720ab15a21")
+        title: agua
+        description: bebida
+        price: 2.66
+        thumbnail: rutaAGUA.png
+        code: bebidas#543
+        stock: 78
+        owner: ADMIN
+  requestBodies:
+    postProduct:
+      description: Body con la info del usuario a crear
+      properties:
+        _id:
+          type: string
+          description: Id el cual genera automaticamente mongo
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripcion del producto
+        price:
+          type: string
+          description: Precio del producto
+        thumbnail:
+          type: string
+          description: Ruta de imagen del producto
+        code:
+          type: string
+          description: Codigo el cual no se debe repetir del producto
+        stock:
+          type: string
+          description: Cantidad de productos que hay en alamcen por vender
+        owner:
+          type: string
+          description: Persona que creo el producto (si es userPremium se coloca el id, sino lo es, por defecto se coloca ADMIN)
+      example:
+        _id: ObjectId("64cec5849e98da720ab15a21")
+        title: agua
+        description: bebida
+        price: 2.66
+        thumbnail: rutaAGUA.png
+        code: bebidas#543
+        stock: 78
+        owner: ADMIN
+    updateProduct:
+      description: Body con la info del usuario actualizada
+      properties:
+        _id:
+          type: string
+          description: Id el cual genera  mongo
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripcion del producto
+        price:
+          type: string
+          description: Precio del producto
+        thumbnail:
+          type: string
+          description: Ruta de imagen del producto
+        code:
+          type: string
+          description: Codigo el cual no se debe repetir del producto
+        stock:
+          type: string
+          description: Cantidad de productos que hay en alamcen por vender
+        owner:
+          type: string
+          description: Persona que creo el producto (si es userPremium se coloca el id, sino lo es, por defecto se coloca ADMIN)
+      example:
+        _id: ObjectId("64cec5849e98da720ab15a21")
+        title: agua
+        description: bebida
+        price: 2.66
+        thumbnail: rutaAGUA.png
+        code: bebidas#543
+        stock: 78
+        owner: ADMIN

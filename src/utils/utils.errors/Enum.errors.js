@@ -1,0 +1,9 @@
+const EnumErrors = {
+  ERROR_ROUTING: 1,
+  INVALID_TYPES_ERROR: 2,
+  DATABASE_ERROR: 3,
+  INVALID_CONTENT_INFO_ERROR: 4,
+  INVALID_USER_PERMISSIONS_ERROR: 5,
+};
+
+export default EnumErrors;

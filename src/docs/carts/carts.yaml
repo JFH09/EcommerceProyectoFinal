@@ -1,0 +1,550 @@
+openapi: "3.0.1"
+info:
+  title: API CARTS
+  version: "1.0"
+paths:
+  /api/carts/{id}/carrito:
+    get:
+      summary: Obtiene el carrito por id
+      tags:
+        - Carts
+      parameters:
+        #64cecfcb2dc6dc21417576dc
+        - name: id
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se obtivo el carrito
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Cart"
+  /api/carts/{idCarrito}/{product}/{idProduct}/2:
+    put:
+      summary: Agregar N cantidad de productos al carrito
+      tags:
+        - Carts
+      parameters:
+        #64cecfcb2dc6dc21417576dc
+        - name: idCarrito
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+        #Azucar
+        - name: product
+          in: path
+          required: true
+          description: nombre del producto
+          schema:
+            type: string
+        #64cec5bd9e98da720ab15a38
+        - name: idProduct
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+        - name: quantity
+          in: body
+          required: true
+          description: cantidad del producto
+          schema:
+            type: object
+            properties:
+              quantity:
+                type: number
+      responses:
+        "200":
+          description: Se agrego los productos al carrito
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/updateCart"
+        "400":
+          description: Cart no existente.
+        "401":
+          description: No tiene el perfil adecuado para realizar la peticion, probar con admin, premium o usuario
+  /api/carts/{idCart}/{product}/{idProduct}:
+    put:
+      summary: Agregar id product al carrito
+      tags:
+        - Carts
+      parameters:
+        #64cecfcb2dc6dc21417576dc
+        - name: idCart
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+        #Azucar
+        - name: product
+          in: path
+          required: true
+          description: nombre del producto
+          schema:
+            type: string
+        #64cec5bd9e98da720ab15a38
+        - name: idProduct
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+        - name: quantity
+          in: body
+          required: true
+          description: cantidad del producto
+          schema:
+            type: object
+            properties:
+              quantity:
+                type: number
+      responses:
+        "200":
+          description: Se agrego los productos al carrito
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/updateCart"
+        "400":
+          description: Cart no existente.
+        "401":
+          description: No tiene el perfil adecuado para realizar la peticion, probar con admin, premium o usuario
+    delete:
+      summary: Eliminando todo el producto del carrito
+      tags:
+        - Carts
+      parameters:
+        #64cecfcb2dc6dc21417576dc
+        - name: idCart
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+        #Azucar
+        - name: product
+          in: path
+          required: true
+          description: nombre del producto
+          schema:
+            type: string
+        #64cec5bd9e98da720ab15a38
+        - name: idProduct
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se agrego los productos al carrito
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/updateCart"
+        "400":
+          description: Cart no existente.
+        "401":
+          description: No tiene el perfil adecuado para realizar la peticion, probar con admin, premium o usuario
+  /api/carts/{idCart}/product/{idProduct}:
+    put:
+      summary: Disminuir en uno la cantidad de productos en el carrito por id
+      tags:
+        - Carts
+      parameters:
+        #64cecfcb2dc6dc21417576dc
+        - name: idCarrito
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+        #Azucar
+        - name: product
+          in: path
+          required: true
+          description: nombre del producto
+          schema:
+            type: string
+        #64cec5bd9e98da720ab15a38
+        - name: idProduct
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se agrego los productos al carrito
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/updateCart"
+        "400":
+          description: Cart no existente.
+        "401":
+          description: No tiene el perfil adecuado para realizar la peticion, probar con admin, premium o usuario
+  /api/carts/{id}:
+    delete:
+      summary: Eliminar carrito por id
+      tags:
+        - Carts
+      parameters:
+        #64cecfcb2dc6dc21417576dc
+        - name: idCarrito
+          in: path
+          required: true
+          description: id del carrito
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se elimino el carrito
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/updateCart"
+        "400":
+          description: Cart no existente.
+        "401":
+          description: No tiene el perfil adecuado para realizar la peticion, probar con admin, premium o usuario
+  /api/carts/:
+    post:
+      summary: crea un carrito en blanco
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Se creo el carrito
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Cart"
+        "400":
+          description: No se pudo crear el carrito.
+        "401":
+          description: No tiene el perfil adecuado para realizar la peticion, probar con admin, premium o usuario
+  /api/carts/{idCart}/purchase/{ticketId}:
+    get:
+      summary: Obtiene la informacion de los productos que se van a comprar en el carrito
+      tags:
+        - Carts
+      parameters:
+        #64cecfcb2dc6dc21417576dc
+        - name: idCart
+          in: path
+          required: true
+          description: id del producto
+          schema:
+            type: string
+        - name: ticketId
+          in: path
+          required: true
+          description: id del ticket generado para la compra
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se obtivo el ticket
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/listProductsToDelete"
+  /api/carts/ticket/{idTicket}:
+    get:
+      summary: Obtiene la informacion del ticket generado para proceder con la compra
+      tags:
+        - Carts
+      parameters:
+        - name: idTicket
+          in: path
+          required: true
+          description: id del ticket generado para la compra
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Se obtivo el ticket
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Ticket"
+  /api/carts/{idCart}/purchase:
+    post:
+      summary: Agrega un nuevo ticket en la base
+      tags:
+        - Carts
+      parameters:
+        - name: listProductsToDelete
+          in: body
+          required: true
+          description: Arreglo con la lista de productos que se van a liminar del carrito cuando se realice la compra
+          schema:
+            type: array
+            properties:
+              productToDelete:
+                type: object
+                description: producto a eliminar del carrito para proceder con la compra
+                properties:
+                  idProduct:
+                    type: string
+                    description: id que genera mongo a nivel de la cantidad del producto en el schema del carrito de la info del carrito, para encontrar el producto por el id, es el id del producto en el carrito
+                  Product:
+                    type: object
+                    description: La información de todo el producto dentro del carrito
+      responses:
+        "200":
+          description: El producto se creo correctamente
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/requestBodies/postTicket"
+        "400":
+          description: Producto no existente.
+        "401":
+          description: No tiene el perfil adecuado para la peticion probar con admin, premium o usuario
+    delete:
+      summary: Elimina un ticket en la base asociado al id del carrito
+      tags:
+        - Carts
+      parameters:
+        - name: idCarrito
+          in: path
+          required: true
+          description: id del carrito para encontrar el ticket asociado
+          schema:
+            type: string
+        - name: ticketId
+          in: body
+          required: true
+          description: id del ticket a eliminar
+          schema:
+            type: object
+            properties:
+              ticketId:
+                type: string
+                description: id del ticketId a eliminar
+        - name: ticketCode
+          in: body
+          required: true
+          description: id del ticketCode a eliminar
+          schema:
+            type: object
+            properties:
+              ticketCode:
+                type: string
+                description: id del ticketCode a eliminar
+
+      responses:
+        "200":
+          description: El producto se creo correctamente
+          content:
+            application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Ticket"
+        "400":
+          description: Producto no existente.
+        "401":
+          description: No tiene el perfil adecuado para la peticion probar con admin, premium o usuario
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id generado autómaticamente por Mongo
+        products:
+          type: array
+          description: Contiene los productos que el ususario añada al carrito y quiere comprar, tambien tiene la cantidad de productos que se añade
+          items:
+            type: object
+            description: Objeto que contiene al producto y su cantidad.
+            properties:
+              product:
+                $ref: "#components/schemas/Product"
+                description: Se realiza un populate a products apartir del id y trae toda la informacion del producto
+              quantity:
+                type: Number
+                description: Cantidad del producto que añadio el usuario
+              _id:
+                type: ObjectId
+                description: Id generado automaticamente por mongo
+      example:
+        _id: ObjectId("64cecfcb2dc6dc21417576dc")
+        products:
+          [
+            {
+              product: ObjectId("64cec5bd9e98da720ab15a38"),
+              quantity: 26,
+              _id: "64d163c75b089f788b8d61ff",
+            },
+            {
+              product: ObjectId("64ced0d02dc6dc2141757767"),
+              quantity: 2,
+              _id: "64d177785629c7125155a5f6",
+            },
+          ]
+    Ticket:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id generado autómaticamente por Mongo
+        code:
+          type: ObjectId
+          description: id que apunta al ticketcode el cual dice cuanto tiempo expira
+        purchase_dataTime:
+          type: String
+          description: Fecha de creación del ticket
+        amount:
+          type: String
+          description: Monto total a pagar
+        purchaser:
+          type: String
+          description: email del cliente que esta realizando el proceso de compra
+        infoPurchase:
+          type: String
+          description: información de los productos que tienen el stock disponible para realizar la compra
+        infoNoPurchase:
+          type: String
+          description: información de los productos que NO tienen el stock disponible para realizar la compra
+      example:
+        _id: ObjectId("64cecea15f823e2a44533e71")
+        code: ObjectId("64cecea15f823e2a44533e6f")
+        purchase_dataTime: "5/7/2023 17:35"
+        amount: 13.76
+        purchaser: premium@gmail.com"
+        infoPurchase: "64ceca5238699a319a375686 | Azucar | quantity:4 | precioc/u:3.44 | Tota…"
+        infoNoPurchase: ""
+    listProductsToDelete:
+      type: Array
+      properties:
+        productToDelete:
+          type: object
+          description: producto a eliminar del carrito para proceder con la compra
+          properties:
+            idProduct:
+              type: string
+              description: id que genera mongo a nivel de la cantidad del producto en el schema del carrito de la info del carrito, para encontrar el producto por el id, es el id del producto en el carrito
+            Product:
+              type: object
+              description: La información de todo el producto dentro del carrito
+      example:
+        [
+          {
+            idProduct: "64d1639c5b089f788b8d61eb",
+            product:
+              {
+                _id: new ObjectId("64cec74df1c6bd2c1dfd4970"),
+                title: "Naranja",
+                description: "Fruta",
+                price: "2.33",
+                thumbnail: "rutaNaranja.png",
+                code: "fruta#44",
+                stock: "10",
+                owner: "ADMIN",
+              },
+          },
+        ]
+
+  requestBodies:
+    postTicket:
+      description: Body con la info del ticket a crear
+      properties:
+        _id:
+          type: string
+          description: Id el cual genera automaticamente mongo
+        code:
+          type: string
+          description: Codigo generado de ticketCode con el uso de uuidv4
+        purchase_dataTime:
+          type: string
+          description: Fecha de creación
+        amount:
+          type: string
+          description: Precio total
+        purchaser:
+          type: String
+          description: email del cliente que esta realizando el proceso de compra
+        infoPurchase:
+          type: String
+          description: información de los productos que tienen el stock disponible para realizar la compra
+        infoNoPurchase:
+          type: String
+          description: información de los productos que NO tienen el stock disponible para realizar la compra
+      example:
+        _id: ObjectId("64cecea15f823e2a44533e71")
+        code: ObjectId("64cecea15f823e2a44533e6f")
+        purchase_dataTime: "5/7/2023 17:35"
+        amount: 13.76
+        purchaser: premium@gmail.com"
+        infoPurchase: "64ceca5238699a319a375686 | Azucar | quantity:4 | precioc/u:3.44 | Tota…"
+        infoNoPurchase: ""
+    updateCart:
+      description: Body con la info del carrito actualizada
+      properties:
+        _id:
+          type: ObjectId
+          description: Id generado autómaticamente por Mongo
+        products:
+          type: array
+          description: Contiene los productos que el ususario añada al carrito y quiere comprar, tambien tiene la cantidad de productos que se añade
+          items:
+            type: object
+            description: Objeto que contiene al producto y su cantidad.
+            properties:
+              product:
+                $ref: "#components/schemas/Product"
+                description: Se realiza un populate a products apartir del id y trae toda la informacion del producto
+              quantity:
+                type: Number
+                description: Cantidad del producto que añadio el usuario
+              _id:
+                type: ObjectId
+                description: Id generado automaticamente por mongo
+      example:
+        _id: ObjectId("64cecfcb2dc6dc21417576dc")
+        products:
+          [
+            {
+              product: ObjectId("64cec5bd9e98da720ab15a38"),
+              quantity: 26,
+              _id: "64d163c75b089f788b8d61ff",
+            },
+            {
+              product: ObjectId("64ced0d02dc6dc2141757767"),
+              quantity: 2,
+              _id: "64d177785629c7125155a5f6",
+            },
+          ]
