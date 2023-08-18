@@ -3,7 +3,7 @@ import userModel from "./user.js";
 
 export default class User {
   login = async (req) => {
-    console.log(req);
+    // console.log(req);
 
     try {
       let idUser = JSON.stringify(req.user._id);
@@ -15,11 +15,11 @@ export default class User {
       let idCart = JSON.stringify(infoUsuario.carts[0]._id);
       // console.log("id cart ------", typeof idCart);
       idCart = idCart.split('"');
-      console.log(idCart[1]);
-      console.log(
-        "55 sessionRouter - Informacion usuario logueado ->",
-        infoUsuario
-      );
+      // console.log(idCart[1]);
+      // console.log(
+      //   "55 sessionRouter - Informacion usuario logueado ->",
+      //   infoUsuario
+      // );
       let contadorObligatorios = 0;
       for (const documento of infoUsuario.documents) {
         // console.log(documento.name);
@@ -54,16 +54,16 @@ export default class User {
         { _id: infoUsuario._id },
         infoUsuario
       );
-      console.log(
-        "usuario actualizado en user dao fecha login 38",
-        userUpdated
-      );
+      // console.log(
+      //   "usuario actualizado en user dao fecha login 38",
+      //   userUpdated
+      // );
 
       return { status: "success", payload: req.user };
     } catch (error) {
-      console.log(
-        "no se pudo realizar la operacion - entro al catch en user.dao - 42"
-      );
+      // console.log(
+      //   "no se pudo realizar la operacion - entro al catch en user.dao - 42"
+      // );
       return "no se pudo realizar la accion";
     }
   };

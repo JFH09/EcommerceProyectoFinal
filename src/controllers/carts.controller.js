@@ -5,7 +5,7 @@ import ticketCodeModel from "../dao/models/ticketCode.model.js";
 import { v4 as uuidv4 } from "uuid";
 
 const getRootCart = async (req, res) => {
-  console.log("obteniendo lista total de carritos :");
+  // console.log("obteniendo lista total de carritos :");
   try {
     let carts = await cartModel.find();
     res.json({ result: "success", payload: carts });
@@ -15,14 +15,14 @@ const getRootCart = async (req, res) => {
 };
 
 const getViewCartById = async (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   let idCarrito = req.params.id;
-  console.log("idCart 19 : ", idCarrito);
-  console.log("obteniendo carrito by id: 20");
+  // console.log("idCart 19 : ", idCarrito);
+  // console.log("obteniendo carrito by id: 20");
   try {
     let cart = await cartModel.findOne({ _id: "649e7d15cb463aef3c6b25a9" });
     //  .populate("products.product");
-    console.log(cart);
+    // console.log(cart);
     if (cart != null) {
       res.render("cart", { cart });
     } else {
@@ -35,8 +35,8 @@ const getViewCartById = async (req, res) => {
 
 const getCartById = async (req, res) => {
   let idCarrito = req.params.id;
-  console.log("idCart 36 : ", idCarrito);
-  console.log("obteniendo carrito by id: 37");
+  // console.log("idCart 36 : ", idCarrito);
+  // console.log("obteniendo carrito by id: 37");
   try {
     let cart = await cartModel
       .findOne({ _id: idCarrito })
@@ -49,19 +49,19 @@ const getCartById = async (req, res) => {
 
 const addNProductsToCart = async (req, res) => {
   let { quantity } = req.body;
-  console.log(quantity);
+  // console.log(quantity);
   let { idCarrito, product, idProduct } = req.params;
 
   //console.log("entro a post ...", req.body.products);
-  console.log("entro a post ...");
-  console.log("agregando el carrito con la info -> ", product);
+  // console.log("entro a post ...");
+  // console.log("agregando el carrito con la info -> ", product);
 
   if (!product || !idProduct || !idCarrito) {
-    console.log("entro a condicional de valores incompletos");
+    // console.log("entro a condicional de valores incompletos");
     return res.json({ result: "error", error: "Valores incompletos..." });
   }
 
-  console.log("buscando si existe un carrito con el id ", idCarrito);
+  // console.log("buscando si existe un carrito con el id ", idCarrito);
 
   let cart = await cartModel.findOne({ _id: idCarrito });
   //console.log("result: ", cart);
@@ -126,12 +126,12 @@ const editCartByIdandArrayProducts = async (req, res) => {
   let quantity = 0;
   let { idCarrito } = req.params;
   let arrayProducts = req.body;
-  console.log(
-    "agregando el carrito con la info -> ",
-    idCarrito,
-    "array",
-    arrayProducts
-  );
+  // console.log(
+  //   "agregando el carrito con la info -> ",
+  //   idCarrito,
+  //   "array",
+  //   arrayProducts
+  // );
 
   if (!idCarrito || !arrayProducts) {
     // console.log("entro a condicional de valores incompletos");
@@ -171,7 +171,7 @@ const editCartByIdandArrayProducts = async (req, res) => {
       let result = await cartModel.updateOne({ _id: idCarrito }, cart);
       req.logger.info("Carrito editado");
       res.json({ status: "success", payload: result });
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       req.logger.info("No se pudo EDITAR el carrito, puede que no exista");
       //console.log("No se pudo EDITAR el carrito, puede que no exista");
@@ -184,7 +184,7 @@ const editCartByIdandArrayProducts = async (req, res) => {
 };
 
 const deleteCartById = async (req, res) => {
-  console.log("entro a eliminar carrito...");
+  // console.log("entro a eliminar carrito...");
   let { id } = req.params;
 
   try {
@@ -211,7 +211,7 @@ const addIdProductToCart = async (req, res) => {
   let idProduct = req.params.idProduct;
   let { quantity } = req.body;
 
-  console.log("product: ", idProduct, "idCart", idCart, "quantity", quantity);
+  // console.log("product: ", idProduct, "idCart", idCart, "quantity", quantity);
   try {
     let carrito = await cartModel.find({ _id: idCart });
     let producto = await cartModel.find({ _id: idProduct });
@@ -251,7 +251,7 @@ const addIdProductToCart = async (req, res) => {
           //PENSAR COMO PUEDO OBTENER LA POSICION PARA QUE SI EXISTE ACTUALICE EL PRODUCT EN VEZ DE PUSHEARLO
           // console.log("pos Product .> ", posicionProducto);
         } else {
-          console.log("el producto NO  existe en el carrito...");
+          // console.log("el producto NO  existe en el carrito...");
           req.logger.warning("el producto no existe en el carrito");
         }
       });
@@ -259,13 +259,13 @@ const addIdProductToCart = async (req, res) => {
       // console.log("LINE 385 Quantity quedo en :", quantity);
       // console.log("Posicion Producto", posicionProducto);
       let user = req.session.user;
-      console.log("user obtenido 262", user);
-      console.log("trayendo info del idProduct -  ", idProduct);
+      // console.log("user obtenido 262", user);
+      // console.log("trayendo info del idProduct -  ", idProduct);
       let productInfo = await productModel.findById({ _id: idProduct });
       let estado;
       let result;
-      console.log("obteniendo usu para EDITAR prodct 265", user);
-      console.log("obteniendo producto para editar 266", productInfo);
+      // console.log("obteniendo usu para EDITAR prodct 265", user);
+      // console.log("obteniendo producto para editar 266", productInfo);
       let ownerProduct = productInfo.owner;
       let owner = ownerProduct.split(" ");
       //|| user.rol.toUpperCase() != "PREMIUM"
@@ -318,8 +318,8 @@ const restCantProductoById = async (req, res) => {
     if (carrito && producto) {
       let cart = carrito[0];
       // console.log("*****425", cart);
-      console.log(carrito);
-      console.log(carrito[0].products);
+      // console.log(carrito);
+      // console.log(carrito[0].products);
       let existe = false;
       let posicionProducto = "";
       cart.products.forEach((elemento) => {
@@ -382,17 +382,17 @@ const restCantProductoById = async (req, res) => {
 };
 
 const deleteAllProductCart = async (req, res) => {
-  console.log("Eliminando todo el producto del carrito...");
+  // console.log("Eliminando todo el producto del carrito...");
   let idCart = req.params.idCart;
   let idProduct = req.params.idProduct;
   let product = req.params.product;
   //let { quantity } = req.body;
 
-  console.log("354 product: ", idProduct, "idCart", idCart, "product", product);
+  // console.log("354 product: ", idProduct, "idCart", idCart, "product", product);
   try {
     let carrito = await cartModel.find({ _id: idCart });
     let producto = await cartModel.find({ _id: idProduct });
-    console.log("idProducto entra a cartsController 375", idProduct);
+    // console.log("idProducto entra a cartsController 375", idProduct);
     if (carrito && producto) {
       let cart = carrito[0];
       console.log("*****378", cart);
@@ -404,46 +404,46 @@ const deleteAllProductCart = async (req, res) => {
         let idElement = JSON.stringify(elemento._id);
         let elementIdSeparated = idElement.split('"');
 
-        console.log(
-          "comparando ids -> ",
-          elementIdSeparated[1],
-          " -IDPRODUCT ",
-          idProduct
-        );
-        console.log("en foreach 384", elemento._id);
+        // console.log(
+        //   "comparando ids -> ",
+        //   elementIdSeparated[1],
+        //   " -IDPRODUCT ",
+        //   idProduct
+        // );
+        // console.log("en foreach 384", elemento._id);
         if (elementIdSeparated[1] == idProduct) {
           //verificar tambien el code
-          console.log("el producto existe en el carrito...");
-          console.log(elemento.quantity - 1);
+          // console.log("el producto existe en el carrito...");
+          // console.log(elemento.quantity - 1);
           existe = true;
-          console.log(elemento._id);
-          console.log("typeof -> ", typeof elemento._id);
+          // console.log(elemento._id);
+          // console.log("typeof -> ", typeof elemento._id);
           let el = elemento._id.toString();
-          console.log("typeof -> ", typeof el);
+          // console.log("typeof -> ", typeof el);
           let div = el.split('"', 2);
-          console.log("division", div[0]);
+          // console.log("division", div[0]);
           div = div[0];
-          console.log(cart.products);
+          // console.log(cart.products);
           posicionProducto = cart.products.indexOf(elemento);
-          console.log("pos Product .> ", posicionProducto);
+          // console.log("pos Product .> ", posicionProducto);
         } else {
           console.log("el producto NO  existe en el carrito... 401");
         }
       });
 
       // console.log("Quantity quedo en :", quantity);
-      console.log("Posicion Producto", posicionProducto);
+      // console.log("Posicion Producto", posicionProducto);
       if (existe) {
         //cart.products[]
-        console.log("actualizando producto en la posicion ", posicionProducto);
+        // console.log("actualizando producto en la posicion ", posicionProducto);
         //console.log(cart.products[posicionProducto].quantity);
-        console.log("line 534");
-        console.log(cart.products);
+        // console.log("line 534");
+        // console.log(cart.products);
         cart.products = cart.products.filter(
           (e) => e != cart.products[posicionProducto]
         );
-        console.log("line 539");
-        console.log(cart.products);
+        // console.log("line 539");
+        // console.log(cart.products);
       } else {
         res.json({
           status: "error",
@@ -469,17 +469,17 @@ const deleteAllProductCart = async (req, res) => {
 };
 
 const getViewPurchase = async (req, res) => {
-  console.log("entro a vista de ticket de compra...");
+  // console.log("entro a vista de ticket de compra...");
   let userEmail = req.session.user.email;
 
   try {
     let ticket = await ticketModel.findOne({ purchaser: userEmail });
     //.populate("code");
 
-    console.log(userEmail, ticket);
+    // console.log(userEmail, ticket);
 
     let infoCompra = ticket.infoPurchase.split("nextProduct");
-    console.log("infoCompra:", infoCompra);
+    // console.log("infoCompra:", infoCompra);
     res.render("purchase", {
       user: userEmail,
       ticket_id: ticket._id,
@@ -499,7 +499,7 @@ const getViewPurchase = async (req, res) => {
 
 const addTicketToPurchase = async (req, res) => {
   let infoCarritoCompra = req.body;
-  console.log("454addTicket", infoCarritoCompra);
+  // console.log("454addTicket", infoCarritoCompra);
   let listaProductosCompra = infoCarritoCompra.listaProductosCompra;
   let listaProductosPermanecenEnCarrito =
     infoCarritoCompra.listaProductosPermanecenEnCarrito;
@@ -508,8 +508,8 @@ const addTicketToPurchase = async (req, res) => {
   let infoProductos = "";
   let infoProductosNoStock = "";
   listaProductosCompra.forEach((producto) => {
-    console.log(producto.product.price);
-    console.log("464", producto);
+    // console.log(producto.product.price);
+    // console.log("464", producto);
     let precioProducto = parseFloat(producto.product.price);
     precioTotal = precioTotal + precioProducto * producto.quantity;
 
@@ -528,7 +528,7 @@ const addTicketToPurchase = async (req, res) => {
   });
 
   listaProductosPermanecenEnCarrito.forEach((producto) => {
-    console.log(producto.product._id);
+    // console.log(producto.product._id);
 
     infoProductosNoStock =
       infoProductosNoStock +
@@ -537,9 +537,9 @@ const addTicketToPurchase = async (req, res) => {
       producto.quantity +
       " nextProduct ";
   });
-  console.log(infoProductos);
-  console.log(precioTotal);
-  console.log(infoProductosNoStock);
+  // console.log(infoProductos);
+  // console.log(precioTotal);
+  // console.log(infoProductosNoStock);
 
   try {
     const codeTicket = uuidv4();
@@ -549,7 +549,7 @@ const addTicketToPurchase = async (req, res) => {
       expireAt: expirationTime,
     });
 
-    console.log("ticketCode", ticketCode);
+    // console.log("ticketCode", ticketCode);
     let fechaActual = new Date();
     let fecha =
       fechaActual.getDate() +
@@ -561,7 +561,7 @@ const addTicketToPurchase = async (req, res) => {
       fechaActual.getHours() +
       ":" +
       fechaActual.getMinutes();
-    console.log(req.session.user);
+    // console.log(req.session.user);
     let user = req.session.user;
     const ticket = {
       code: ticketCode,
@@ -572,8 +572,8 @@ const addTicketToPurchase = async (req, res) => {
       infoNoPurchase: infoProductosNoStock,
     };
     const ticketPurchase = await ticketModel.create(ticket);
-    console.log(ticket);
-    console.log("ticketPurchase => 496", ticketPurchase);
+    // console.log(ticket);
+    // console.log("ticketPurchase => 496", ticketPurchase);
     res.json({
       status: "Success",
       result: ticketPurchase,
@@ -617,12 +617,12 @@ const deleteTicketToPurchase = async (req, res) => {
 const getInfoPurchase = async (req, res) => {
   let { ticketId } = req.params;
   let { idCart } = req.params;
-  console.log("idCart ->", idCart);
+  // console.log("idCart ->", idCart);
   console.log("entrando a pagar....");
 
-  console.log("obteniendo informacion para actualizar data....");
+  // console.log("obteniendo informacion para actualizar data....");
   let infoTicket = await ticketModel.findById({ _id: ticketId });
-  console.log(infoTicket);
+  // console.log(infoTicket);
 
   console.log(
     "actualizando informacion de productos que no se pudieron comprar... en el ticket",
@@ -630,7 +630,7 @@ const getInfoPurchase = async (req, res) => {
   );
   //Toca dejarlos en el carrito...
   let infoCarrito = await cartModel.findById({ _id: idCart });
-  console.log("info carrito - ", infoCarrito);
+  // console.log("info carrito - ", infoCarrito);
   //let infoCartProductsNoComprados;
   //Armando array para actualizar info en el carrito...
 
@@ -647,10 +647,10 @@ const getInfoPurchase = async (req, res) => {
   // });
 
   let infoProductPurchase1 = infoTicket.infoPurchase.split("nextProduct");
-  console.log("infoComprados...", infoProductPurchase1);
+  // console.log("infoComprados...", infoProductPurchase1);
   let infoProductPurchase = infoProductPurchase1.filter((p) => p != " ");
 
-  console.log("infoComprados...", infoProductPurchase);
+  // console.log("infoComprados...", infoProductPurchase);
   let listaProductToDelete = [];
   let productToDelete = {
     idProduct: "",
@@ -659,9 +659,9 @@ const getInfoPurchase = async (req, res) => {
   //eliminando productos del carrito comprados
   infoProductPurchase.forEach((product) => {
     let infoProduct = product.split("|");
-    console.log(infoProduct);
-    console.log("idProducto a eliminar -> ", infoProduct[0]);
-    console.log("Producto a eliminar -> ", infoProduct[1]);
+    // console.log(infoProduct);
+    // console.log("idProducto a eliminar -> ", infoProduct[0]);
+    // console.log("Producto a eliminar -> ", infoProduct[1]);
     let productToDelete = {
       idProduct: infoProduct[0],
       product: infoProduct[1],
@@ -669,7 +669,7 @@ const getInfoPurchase = async (req, res) => {
 
     listaProductToDelete.push(productToDelete);
   });
-  console.log(listaProductToDelete);
+  // console.log(listaProductToDelete);
   res.json({
     status: "success",
     result: listaProductToDelete,
@@ -679,11 +679,11 @@ const getInfoPurchase = async (req, res) => {
 const getInfoTicket = async (req, res) => {
   console.log("ENTRO A GET ID ticket ***************");
   let { idTicket } = req.params;
-  console.log("Entro a obtener product by id", idTicket);
+  // console.log("Entro a obtener product by id", idTicket);
   try {
     let ticket = await ticketModel.findOne({ _id: idTicket });
-    console.log("ticket...**********");
-    console.log(ticket);
+    // console.log("ticket...**********");
+    // console.log(ticket);
     res.status(201).json(ticket);
   } catch (error) {
     console.log("No se pudo obtener los productos con mongoose : ", error);

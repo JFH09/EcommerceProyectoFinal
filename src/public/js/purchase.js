@@ -1,7 +1,7 @@
 let currentUrl = window.location.href;
 let temporizador;
 let stopped = true;
-console.log("entro a proceso de compra con ticket....");
+// console.log("entro a proceso de compra con ticket....");
 let tiempoMaxCompra = 1; //MInutos
 let cont = 0;
 let seconds = [0, 0];
@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
 
 function iniciarTemporizador() {
   temporizador = setInterval(tiempoCompra, 1000);
-  console.log(temporizador);
+  // console.log(temporizador);
 }
 
 async function tiempoCompra() {
@@ -68,7 +68,7 @@ async function actializarEstadoTicket() {
       vence = "0" + minutes[1] + ":" + "0" + seconds[1];
 
       if (stopped == true) {
-        console.log("entro a reiniciar el temporizador..");
+        // console.log("entro a reiniciar el temporizador..");
         iniciarTemporizador();
       }
     } else {
@@ -79,15 +79,15 @@ async function actializarEstadoTicket() {
 
 async function eliminarTicket() {
   let urlVolver = currentUrl.split("/purchase");
-  console.log(urlVolver);
+  // console.log(urlVolver);
   let ticketId = document.getElementById("ticketId").innerHTML;
   let ticketCode = document.getElementById("tickedCode").innerHTML;
-  console.log("ticketToDelete", ticketId);
+  // console.log("ticketToDelete", ticketId);
   let infoTicket = {
     ticketId: ticketId,
     ticketCode: ticketCode,
   };
-  console.log("infoTicket", infoTicket);
+  // console.log("infoTicket", infoTicket);
   let data = "";
   await fetch(currentUrl, {
     method: "DELETE",
@@ -98,7 +98,7 @@ async function eliminarTicket() {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       data = result;
     });
 
@@ -118,15 +118,15 @@ let btnPagar = document.getElementById("pagar");
 
 btnPagar.addEventListener("click", async (event) => {
   event.preventDefault();
-  console.log("obteniendo informacion para actualizar data....");
+  // console.log("obteniendo informacion para actualizar data....");
   //let infoTicket = await obtenerInfoTicketById();
   obtenerInfoTicketById();
-  console.log(
-    "actualizando informacion de productos que no se pudieron comprar...",
-    infoTicket
-  );
-  console.log("actualizando stock de los productos comprados...");
-  console.log("Compra realizada...");
+  // console.log(
+  //   "actualizando informacion de productos que no se pudieron comprar...",
+  //   infoTicket
+  // );
+  // console.log("actualizando stock de los productos comprados...");
+  // console.log("Compra realizada...");
 });
 
 async function obtenerInfoTicketById() {
@@ -134,7 +134,7 @@ async function obtenerInfoTicketById() {
   let ticket_Id = {
     ticketId: idTicket,
   };
-  console.log("url", currentUrl);
+  // console.log("url", currentUrl);
   let data = "";
   const response = await fetch(currentUrl + `/${idTicket}`, {
     method: "GET",
@@ -145,18 +145,17 @@ async function obtenerInfoTicketById() {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       data = result;
-      console.log(data);
-      // Manejar la respuesta del servidor
+      // console.log(data);
     })
     .catch((err) => {
       console.log("ERROR: ", err);
     });
 
-  console.log("informacion de ticket ACTUALIZADA (?)-> ", data);
+  // console.log("informacion de ticket ACTUALIZADA (?)-> ", data);
   if (data.status == "success") {
-    console.log("actualizando datos en carrito....");
+    // console.log("actualizando datos en carrito....");
     let carritoActualizado = await eliminarProductosDeCarrito(data.result);
     if (carritoActualizado) {
       await Swal.fire(
@@ -177,17 +176,17 @@ async function obtenerInfoTicketById() {
 async function eliminarProductosDeCarrito(...listaProductosComprados) {
   let cambiosOk = false;
   let urlAux = currentUrl.split("/purchase");
-  console.log("url -> ", urlAux[0] + ":product" + ":idProduct");
-  console.log("ListaComprados = > ", listaProductosComprados);
+  // console.log("url -> ", urlAux[0] + ":product" + ":idProduct");
+  // console.log("ListaComprados = > ", listaProductosComprados);
   let data = "";
   let tamanoLista = listaProductosComprados[0].length;
   let contadorDeleted = 0;
   for (const producto of listaProductosComprados[0]) {
-    console.log(producto);
-    console.log(producto.product);
+    // console.log(producto);
+    // console.log(producto.product);
     let urlToDelete =
       urlAux[0] + `/${producto.product.trim()}/${producto.idProduct.trim()}`;
-    console.log(urlToDelete);
+    // console.log(urlToDelete);
 
     await fetch(urlToDelete, {
       method: "DELETE",
@@ -198,10 +197,9 @@ async function eliminarProductosDeCarrito(...listaProductosComprados) {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         data = result;
-        console.log(data);
-        //Manejar la respuesta del servidor
+        // console.log(data);
       })
       .catch((err) => {
         console.log("ERROR: ", err);
@@ -212,11 +210,11 @@ async function eliminarProductosDeCarrito(...listaProductosComprados) {
     //   console.log("informacion de ticket ACTUALIZADA (?)-> ", tamanoLista);
     // }
     contadorDeleted++;
-    console.log("informacion de ticket ACTUALIZADA (?)-> ", tamanoLista);
+    // console.log("informacion de ticket ACTUALIZADA (?)-> ", tamanoLista);
   }
 
   if (contadorDeleted == tamanoLista) {
-    console.log("Se actualizo correctamente la infotmacion el elcarrito");
+    // console.log("Se actualizo correctamente la infotmacion el elcarrito");
     cambiosOk = true;
     //await eliminarTicket();
   }
@@ -230,14 +228,14 @@ async function actualizandoStockCompra(...listaProductosComprados) {
   //VARIABLE STOCK Y AHI HACER UN UPDATE A CADA UNA...
   let cambiosOk = false;
   let urlAux = currentUrl.split("/api");
-  console.log("url -> ", urlAux[0] + "/api/products/:id");
-  console.log(listaProductosComprados[0]);
+  // console.log("url -> ", urlAux[0] + "/api/products/:id");
+  // console.log(listaProductosComprados[0]);
   let data = [];
   for (const producto of listaProductosComprados[0]) {
-    console.log(
-      "url -> ",
-      urlAux[0] + "/api/products/product/" + producto.product.trim()
-    );
+    // console.log(
+    //   "url -> ",
+    //   urlAux[0] + "/api/products/product/" + producto.product.trim()
+    // );
     let url = urlAux[0] + "/api/products/product/" + producto.product.trim();
     await fetch(url, {
       method: "GET",
@@ -248,9 +246,9 @@ async function actualizandoStockCompra(...listaProductosComprados) {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         data.push(result);
-        console.log(data);
+        // console.log(data);
         // Manejar la respuesta del servidor
       })
       .catch((err) => {
@@ -258,20 +256,20 @@ async function actualizandoStockCompra(...listaProductosComprados) {
       });
   }
   await restandoQuantity(data, listaProductosComprados[0]);
-  console.log("informacion de ticket ACTUALIZADA (?)-> ", data);
+  // console.log("informacion de ticket ACTUALIZADA (?)-> ", data);
 }
 
 async function restandoQuantity(
   listaProductsStockActualizar,
   listaProductosComprados
 ) {
-  console.log(listaProductsStockActualizar);
-  console.log(listaProductosComprados);
-  console.log(currentUrl);
+  // console.log(listaProductsStockActualizar);
+  // console.log(listaProductosComprados);
+  // console.log(currentUrl);
   let cantidadProductsToChange = listaProductosComprados[0].length;
   let url = currentUrl.split("/api");
   let idTicket = document.getElementById("ticketId").innerHTML;
-  console.log("id product to update - ", listaProductsStockActualizar[0]._id);
+  // console.log("id product to update - ", listaProductsStockActualizar[0]._id);
   //console.log("quantity product to update - ", listaProductosComprados[0].);
   let productoToUpdate = {
     productsStockUpdate: listaProductsStockActualizar,
@@ -287,13 +285,13 @@ async function restandoQuantity(
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       dataRes = result;
     });
 
-  console.log(dataRes);
+  // console.log(dataRes);
   let infoPurchase = dataRes.infoPurchase.split("nextProduct");
-  console.log(infoPurchase);
+  // console.log(infoPurchase);
   let infoPurchase2 = infoPurchase.filter((p) => p != " ");
 
   let infoQuantity = [];
@@ -301,7 +299,7 @@ async function restandoQuantity(
     let separado = product.split("|");
     infoQuantity.push(separado);
   }
-  console.log(infoQuantity);
+  // console.log(infoQuantity);
   let productQuantity = [];
   for (const product of infoQuantity) {
     let quantity = product[2].split(":");
@@ -309,26 +307,26 @@ async function restandoQuantity(
       product: product[1],
       quantity: quantity[1],
     };
-    console.log(infoProduct);
+    // console.log(infoProduct);
     productQuantity.push(infoProduct);
   }
-  console.log(productQuantity);
+  // console.log(productQuantity);
   //ARMANDO EL OBJETO PRODUCTO TO UPDATE:
   let listaProductosUpdated = [];
   for (let i in listaProductsStockActualizar) {
-    console.log(listaProductsStockActualizar[i]);
-    console.log("stock antes ...", listaProductsStockActualizar[i].stock);
+    // console.log(listaProductsStockActualizar[i]);
+    // console.log("stock antes ...", listaProductsStockActualizar[i].stock);
     listaProductsStockActualizar[i].stock =
       listaProductsStockActualizar[i].stock - productQuantity[i].quantity;
-    console.log("Actualizado stock product -", listaProductsStockActualizar[i]);
+    // console.log("Actualizado stock product -", listaProductsStockActualizar[i]);
     listaProductosUpdated.push(listaProductsStockActualizar[i]);
   }
-  console.log(listaProductosUpdated);
+  // console.log(listaProductosUpdated);
   let data = [];
   for (const product of listaProductosUpdated) {
     let id = product._id;
     let urlPut = url[0] + "/api/products/user/" + id;
-    console.log("haciendo get a url -> ", urlPut);
+    // console.log("haciendo get a url -> ", urlPut);
     await fetch(url[0] + "/api/products/user/" + id, {
       method: "PUT",
       headers: {
@@ -338,11 +336,11 @@ async function restandoQuantity(
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         data.push(result);
       });
   }
 
   await Swal.fire("Se completo el proceso de compra!!!", "", "success");
-  console.log("resultado Update stock", data);
+  // console.log("resultado Update stock", data);
 }

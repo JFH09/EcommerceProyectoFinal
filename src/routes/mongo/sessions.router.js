@@ -36,11 +36,7 @@ router.post(
 //   sessionsController.resetPassword
 // );
 
-router.post(
-  "/login",
-  passport.authenticate("login", { failureRedirect: "/faillogin" }),
-  sessionsController.login
-);
+router.post("/login", passport.authenticate("login"), sessionsController.login);
 
 // router.get(
 //   "/user/:id",

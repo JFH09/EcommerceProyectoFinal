@@ -24,12 +24,12 @@
           </div>
           <p class="card-text mb-0 ml-5" style="padding-left: 7px;"><small id="userId">UserId:<br/> {{user.id}}</small></p>
           
-          
-          <button id="btnCerrarSesion" class="btn btn-danger">Cerrar Sesión</button>
+          <button onclick="goToViewProducts()" class="btn btn-danger">Atras</button>
+          {{!-- <button id="btnCerrarSesion" class="btn btn-danger">Cerrar Sesión</button> --}}
         </div>
           <div class="btn-group-vertical mb-2" role="group" aria-label="Vertical radio toggle button group" style="width: 100%;">
           <button type="button" onclick="deleteUsersLastConnect()" class="btn pmd-btn-fab pmd-ripple-effect btn-outline-info col">Eliminar usuarios desconectados de hace mas de 2 dias</button>
-          <button type="button" onclick="goToViewProducts()" class="btn pmd-btn-fab pmd-ripple-effect btn-outline-primary col">Atras</button>
+          {{!-- <button type="button" onclick="goToViewProducts()" class="btn pmd-btn-fab pmd-ripple-effect btn btn-danger col">Atras</button> --}}
         </div>      
       </div>
       <div class="paginas">

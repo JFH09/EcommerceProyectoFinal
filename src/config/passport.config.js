@@ -21,12 +21,9 @@ const initializePassport = () => {
           let user = await userModel.findOne({ email: username });
           if (user) {
             console.log("El usuario ya existe");
-
-            return done(null, false);
+            logger.warning("El usuario ya existe");
+            return done(null, false, "invalid");
           }
-
-          console.log("carts-> ", carts);
-
           let cart = await cartModel.create({});
           console.log(cart);
           let cartsAux = [cart];
@@ -39,9 +36,9 @@ const initializePassport = () => {
             rol,
             carts: cartsAux,
           });
-          console.log("USERDTO = ", userToCreate);
+          // console.log("USERDTO = ", userToCreate);
           let result = await userModel.create(userToCreate);
-          return done(null, result);
+          return done(null, result, "valid");
         } catch (err) {
           return done("Error al obtener el usuario " + err);
         }

@@ -44,7 +44,7 @@ btnRegister.addEventListener("click", async (event) => {
 
     console.log("objeto", obj);
     let data = "";
-    const response = await fetch(currentURL[0] + "/api/sessions/register", {
+    const response = await fetch("/api/sessions/register", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {
@@ -72,7 +72,7 @@ btnRegister.addEventListener("click", async (event) => {
       Swal.fire("Usuario registrado con exito!!!", "", "success");
       window.location.replace("/login");
     } else {
-      Swal.fire("No se pudo crear el ususario!!!", "", "warning");
+      Swal.fire("No se pudo crear el ususario!!!", ``, "warning");
       console.log("entro al else de redirecc");
     }
   }

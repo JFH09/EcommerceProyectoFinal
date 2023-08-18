@@ -1,4 +1,4 @@
-console.log("Entro a js de cart");
+// console.log("Entro a js de cart");
 const socket = io();
 let currentUrl = window.location.href;
 let carrito = "";
@@ -16,20 +16,20 @@ btnComprar.addEventListener("click", async () => {
   if (carrito.products.length == 0) {
     await Swal.fire("Agrega carritos para proceder a la compra!!!", "", "info");
   } else {
-    console.log("hay productos en el carrito...");
+    // console.log("hay productos en el carrito...");
     verificarStockCompra();
   }
 });
 
 socket.on("getCart", (data) => {
-  console.log("Entro a get cart del socket");
-  console.log(currentUrl);
+  // console.log("Entro a get cart del socket");
+  // console.log(currentUrl);
   let idUrl = currentUrl.split("/");
-  console.log(idUrl);
+  // console.log(idUrl);
   let ultimoPosUrl = idUrl.length;
-  console.log("La ultiama posicion a buscar es => ", ultimoPosUrl);
+  // console.log("La ultiama posicion a buscar es => ", ultimoPosUrl);
   let idCarrito = idUrl[ultimoPosUrl - 1];
-  console.log("el id a buscar es -> ", idCarrito);
+  // console.log("el id a buscar es -> ", idCarrito);
 
   let tituloIdCarrito = document.getElementById("tituloIdCarrito");
   tituloIdCarrito.innerHTML = idCarrito;
@@ -39,22 +39,19 @@ socket.on("getCart", (data) => {
 
 async function getCarrito() {
   let listaProductos = document.getElementById("listaProductos");
-  console.log("Entron a getCarrito...");
+  // console.log("Entron a getCarrito...");
   let arregloCarrito = "";
   await fetch(currentUrl + "/carrito")
     .then((response) => response.json())
     .then((result) => {
-      console.log(typeof result);
-      console.log(result.docs);
+      // console.log(typeof result);
+      // console.log(result.docs);
       // Manejar la respuesta del servidor
       arregloCarrito = result;
       carrito = result;
     });
-  console.log("53Cart", arregloCarrito);
-  console.log(arregloCarrito.products);
-  //   console.log(arregloCarrito.products[2]);
-  //   console.log(arregloCarrito.products[2].product.title);
-  //   console.log(arregloCarrito.products[2].product._id);
+  // console.log("53Cart", arregloCarrito);
+  // console.log(arregloCarrito.products);
   let productos = "";
 
   //   for (let i = 0; i <= arregloCarrito.products.length; i++) {
@@ -62,8 +59,8 @@ async function getCarrito() {
   //   }
   if (arregloCarrito.products.length != 0) {
     arregloCarrito.products.forEach((producto) => {
-      console.log("40 ---", producto.product.title);
-      console.log("48 ---", producto.quantity);
+      // console.log("40 ---", producto.product.title);
+      // console.log("48 ---", producto.quantity);
       if (producto.quantity != 0) {
         productos =
           productos +
@@ -109,7 +106,7 @@ async function getCarrito() {
 }
 
 async function quitarProducto(idProduct) {
-  console.log("id a buscar ----", idProduct);
+  // console.log("id a buscar ----", idProduct);
   //console.log("El carrrito 89: ", carrito.products[2].quantity);
   let producto = carrito.products.find((e) => {
     //console.log(e);
@@ -117,14 +114,14 @@ async function quitarProducto(idProduct) {
       return e;
     }
   });
-  console.log("producto en quitarProduct 91-> ", producto);
+  // console.log("producto en quitarProduct 91-> ", producto);
   await disminuirCantidadProducto(producto.product._id);
   socket.emit("quitoCarrito", producto);
   Swal.fire("se quito un producto del carrito!!!", "", "success");
 }
 
 async function disminuirCantidadProducto(idProduct) {
-  console.log("el producto que se va a quitar es ....", idProduct);
+  // console.log("el producto que se va a quitar es ....", idProduct);
   await fetch(currentUrl + "/product/" + idProduct, {
     method: "DELETE",
     headers: {
@@ -133,13 +130,13 @@ async function disminuirCantidadProducto(idProduct) {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
     });
-  console.log("se disminuyo en uno la cantidad del producto en el  carrito...");
+  // console.log("se disminuyo en uno la cantidad del producto en el  carrito...");
 }
 
 async function EliminarProducto(idProduct, title) {
-  console.log("el producto que se va a quitar es ....", idProduct);
+  // console.log("el producto que se va a quitar es ....", idProduct);
   await fetch(currentUrl + `/${title}/` + idProduct, {
     method: "DELETE",
     headers: {
@@ -148,31 +145,31 @@ async function EliminarProducto(idProduct, title) {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
     });
   socket.emit("quitoCarrito");
   Swal.fire("se ELIMINO un producto del carrito!!!", "", "info");
-  console.log("se elimino el producto del carrito...");
+  // console.log("se elimino el producto del carrito...");
 }
 
 async function verificarStockCompra() {
   let listaProductosPermanecenEnCarrito = [];
   let listaProductosCompra = [];
   carrito.products.forEach((producto) => {
-    console.log(producto.product);
+    // console.log(producto.product);
     if (producto.product.stock < producto.quantity) {
-      console.log(
-        `El producto ${producto.product.title} no tiene el suficiente stock ${producto.product.stock} para continuar con la compra de ${producto.quantity}`
-      );
+      // console.log(
+      //   `El producto ${producto.product.title} no tiene el suficiente stock ${producto.product.stock} para continuar con la compra de ${producto.quantity}`
+      // );
       listaProductosPermanecenEnCarrito.push({
         product: producto.product,
         quantity: producto.quantity,
         productCartId: producto._id,
       });
     } else {
-      console.log(
-        `El producto ${producto.product.title}  tiene el suficiente stock ${producto.product.stock} para continuar con la compra de ${producto.quantity}`
-      );
+      // console.log(
+      //   `El producto ${producto.product.title}  tiene el suficiente stock ${producto.product.stock} para continuar con la compra de ${producto.quantity}`
+      // );
       listaProductosCompra.push({
         product: producto.product,
         quantity: producto.quantity,
@@ -181,11 +178,11 @@ async function verificarStockCompra() {
     }
   });
 
-  console.log("lista de productos para comprar: ", listaProductosCompra);
-  console.log(
-    "lista de productos permanecen en carrito falta stock: ",
-    listaProductosPermanecenEnCarrito
-  );
+  // console.log("lista de productos para comprar: ", listaProductosCompra);
+  // console.log(
+  //   "lista de productos permanecen en carrito falta stock: ",
+  //   listaProductosPermanecenEnCarrito
+  // );
   if (listaProductosPermanecenEnCarrito.length != 0) {
     await Swal.fire({
       title:
@@ -245,7 +242,7 @@ async function crearTicketCompra(
   listaProductosCompra,
   listaProductosPermanecenEnCarrito
 ) {
-  console.log("entro a crearTicketCompra => ", listaProductosCompra);
+  // console.log("entro a crearTicketCompra => ", listaProductosCompra);
   let data = "";
   let infoCarritoCompra = {
     listaProductosCompra: listaProductosCompra,
@@ -260,11 +257,11 @@ async function crearTicketCompra(
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       // Manejar la respuesta del servidor
       data = result;
     });
-  console.log(data);
+  // console.log(data);
 }
 
 function actualizandoInfoCompra(

@@ -23,11 +23,21 @@ const githubcallback = async (req, res) => {
 
 const register = async (req, res) => {
   console.log("Entro a registrar un user...");
-  res.status(201).json({ status: "success", message: "Usuario Registrado" });
+  console.log("register 26*", req.authInfo);
+  if (req.authInfo != "valid") {
+    req.logger.error("No se inicio sesion" + req.authInfo);
+    //return res.json({ status: "error", error: "credenciales invalidas" });
+    res.json({
+      status: "error",
+      payload: req.authInfo,
+    });
+  } else {
+    res.status(201).json({ status: "success", message: "Usuario Registrado" });
+  }
 };
 
 const login = async (req, res) => {
-  console.log("entro a loguearse, 30*", req);
+  // console.log("entro a loguearse, 30*", req);
   req.logger.info("ENTRO A LOGUEARSE");
   if (req.authInfo != "valid") {
     req.logger.error("No se inicio sesion" + req.authInfo);
@@ -38,7 +48,7 @@ const login = async (req, res) => {
     });
   } else {
     let result = await userServiceDAO.login(req);
-    console.log("result en sessions controller 41", result);
+    // console.log("result en sessions controller 41", result);
     if (result) {
       return res.json(result);
     }

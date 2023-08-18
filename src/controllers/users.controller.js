@@ -147,7 +147,10 @@ const getInfoUsersById = async (req, res) => {
 
 const getInfoAllUsers = async (req, res) => {
   try {
-    let infoUsuarios = await userModel.find({}, "fullName email rol");
+    let infoUsuarios = await userModel.find(
+      {},
+      "fullName email rol last_connection"
+    );
     console.log(infoUsuarios);
 
     res.send({ status: "success", payload: infoUsuarios });

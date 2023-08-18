@@ -22,10 +22,7 @@ let btnPanelAdminUsers = document.getElementById("adminUsers");
 let userRol = document.getElementById("rolToChange");
 let infoUsuario = "";
 window.addEventListener("load", async (event) => {
-  console.log("cargooo la pagina....");
-  console.log(userIdLogeado);
   let idLogeado = userIdLogeado.split(":");
-  console.log(idLogeado[1]);
   if (userIdLogeado || userNameLogeado) {
     console.log("usuario logueado...");
     // Swal.fire(
@@ -382,7 +379,7 @@ async function agregarProducto() {
 }
 
 async function eliminarProducto(idEliminar) {
-  // console.log("id a eliminar - ", idEliminar);
+  console.log("id a eliminar - ", idEliminar);
   let data = "";
   let urlAux = currentUrl.split("/api");
 
@@ -401,6 +398,34 @@ async function eliminarProducto(idEliminar) {
     });
   console.log("RESULTADO ADD AUT", data);
   if (data.status != "error") {
+    console.log(data.infoEmailUserPremium);
+    if (data.infoEmailUserPremium) {
+      let obj = {
+        message: `Te informamos que el producto ${data.infoEmailUserPremium.productDeleted} que tu agregaste fue eliminado de la base`,
+        subject: "Producto Eliminado!!!",
+      };
+      console.log("notificando a usuario premium que se elimino un producto");
+      Swal.fire(
+        `Notificando a usuario ${data.infoEmailUserPremium.email} premium que se elimino un producto`,
+        "",
+        "info"
+      );
+      await fetch(`/api/mail/sendEmail/${data.infoEmailUserPremium.email}`, {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          data = result;
+        })
+        .catch((err) => {
+          console.log("ERROR: ", err);
+        });
+      console.log(data);
+    }
     socket.emit("eliminarProducto", idEliminar);
     Swal.fire("Se elimino el producto correctamente!!!", "", "info");
   } else {

@@ -44,6 +44,7 @@ async function getInfoUserBasic() {
                     <p class="card-text"> <b> Id: ${user._id} </b></p>
                     <p class="card-text"><b>Email:</b> ${user.email}</p>
                     <p class="card-text"><b>Rol:</b> ${user.rol}  </p>
+                    <p class="card-text"><b>Ultima Conexión: </b> <br> <small>${user.last_connection}</small>  </p>
                     <button class="btn btn-primary m-1"  onclick="editarRolUsuario('${user._id}', '${user.rol}')">Editar Rol</button>
                     <button class="btn btn-danger m-1" onclick="eliminarUsuario('${user._id}')">Eliminar Usuario</button>
                 </div>
