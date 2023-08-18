@@ -10,7 +10,7 @@ window.addEventListener("load", async (e) => {
 
 btnGithub.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("clicj en btn github");
+  // console.log("clicj en btn github");
   //href="/api/sessions/github"
   window.location.replace("/api/sessions/github");
 });
@@ -20,7 +20,7 @@ btnIniciarSesion.addEventListener("click", async (event) => {
 
   let email = document.getElementById("inputEmail").value;
   let password = document.getElementById("inputPassword").value;
-  console.log(currentURL);
+  // console.log(currentURL);
   if (!email || !password) {
     await Swal.fire(`Ingrese valores validos!`, "", "info");
   } else {
@@ -28,7 +28,7 @@ btnIniciarSesion.addEventListener("click", async (event) => {
       email: email,
       password: password,
     };
-    console.log("usuario que intenta iniciar sesion : ", obj);
+    // console.log("usuario que intenta iniciar sesion : ", obj);
     if (currentURL[1] != "") {
       currentURL = currentURL.split("/login");
     }
@@ -43,12 +43,12 @@ btnIniciarSesion.addEventListener("click", async (event) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         respuesta = result;
       });
-    console.log(respuesta);
+    // console.log(respuesta);
     if (respuesta.status != "success") {
-      console.log("error al iniciar sesion bad credentials");
+      // console.log("error al iniciar sesion bad credentials");
 
       await Swal.fire(
         `Error: ${respuesta.payload}`,
@@ -70,7 +70,7 @@ btnRegistrarme.addEventListener("click", (e) => {
 async function goToChangePass() {
   let email = document.getElementById("inputEmail").value;
   let enviarEmailLink = false;
-  console.log(email);
+  // console.log(email);
   if (email) {
     let data = "";
     // let urlAux = currentURL.split("/login");
@@ -85,20 +85,20 @@ async function goToChangePass() {
       .then((response) => response.json())
       .then(async (result) => {
         emailVerificado = result;
-        console.log(emailVerificado);
+        // console.log(emailVerificado);
         // Manejar la respuesta del servidor
 
-        console.log(
-          "resultado existe email para recuperar?-> ",
-          emailVerificado
-        );
-        console.log("respuesta", emailVerificado);
+        // console.log(
+        //   "resultado existe email para recuperar?-> ",
+        //   emailVerificado
+        // );
+        // console.log("respuesta", emailVerificado);
 
         if (emailVerificado.status != "error") {
           enviarEmailLink = true;
-          console.log(
-            "Se acaba de enviar un correo a tu email para reestablecer tu contraseña"
-          );
+          // console.log(
+          //   "Se acaba de enviar un correo a tu email para reestablecer tu contraseña"
+          // );
           await fetch("/api/mail/passRecovery/" + email, {
             method: "GET",
             //body: JSON.stringify(obj),
@@ -109,8 +109,7 @@ async function goToChangePass() {
             .then((response) => response.json())
             .then((result) => {
               emailVerificado = result;
-              console.log(emailVerificado);
-              // Manejar la respuesta del servidor
+              // console.log(emailVerificado);
             })
             .catch((err) => {
               console.log("ERROR: ", err);
@@ -145,9 +144,9 @@ async function goToChangePass() {
 }
 
 async function usuariosEliminadosDesconexion() {
-  console.log(
-    "entro a realizar la eliminación de los usuarios con desconexion mayor a dos dias"
-  );
+  // console.log(
+  //   "entro a realizar la eliminación de los usuarios con desconexion mayor a dos dias"
+  // );
   await fetch(`/api/users/`, {
     method: "DELETE",
     headers: {
@@ -156,7 +155,7 @@ async function usuariosEliminadosDesconexion() {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       data = result;
     });
   console.log(

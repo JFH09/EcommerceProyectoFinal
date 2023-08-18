@@ -1,19 +1,19 @@
-console.log("entro al js...");
+// console.log("entro al js...");
 let btnRegister = document.getElementById("registrarUsu");
 let btnLogin = document.getElementById("login");
 
 let currentURL = window.location.href;
 btnRegister.addEventListener("click", async (event) => {
   event.preventDefault();
-  console.log("entro a registrar usuario...");
-  console.log(currentURL);
+  // console.log("entro a registrar usuario...");
+  // console.log(currentURL);
 
   let obj = {};
   if (currentURL[1] != "") {
     currentURL = currentURL.split("/register");
   }
 
-  console.log(currentURL[0]);
+  // console.log(currentURL[0]);
 
   let email = document.getElementById("inputEmail").value;
   let password = document.getElementById("inputPassword").value;
@@ -21,7 +21,7 @@ btnRegister.addEventListener("click", async (event) => {
   let lastName = document.getElementById("inputLastName").value;
   let age = document.getElementById("inputAge").value;
   let rol = document.getElementById("inputRol").value;
-  console.log("rol", rol);
+  // console.log("rol", rol);
   if (
     !email ||
     !password ||
@@ -31,7 +31,7 @@ btnRegister.addEventListener("click", async (event) => {
     rol == "Selecciona..."
   ) {
     Swal.fire("No se pudo crear el ususario!!!", "", "warning");
-    console.log("entro al else de redirecc");
+    // console.log("entro al else de redirecc");
   } else {
     obj = {
       first_name: name,
@@ -42,7 +42,7 @@ btnRegister.addEventListener("click", async (event) => {
       rol: rol,
     };
 
-    console.log("objeto", obj);
+    // console.log("objeto", obj);
     let data = "";
     const response = await fetch("/api/sessions/register", {
       method: "POST",
@@ -53,27 +53,27 @@ btnRegister.addEventListener("click", async (event) => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         data = result;
-        console.log(data);
+        // console.log(data);
         // Manejar la respuesta del servidor
       })
       .catch((err) => {
         console.log("ERROR: ", err);
       });
 
-    console.log(data);
+    // console.log(data);
 
-    console.log("response 2 line44_", response);
+    // console.log("response 2 line44_", response);
     const responseData = data;
-    console.log(data.status);
+    // console.log(data.status);
     if (data.status === "success") {
-      console.log("entro al if para redireccionar");
+      // console.log("entro al if para redireccionar");
       Swal.fire("Usuario registrado con exito!!!", "", "success");
       window.location.replace("/login");
     } else {
       Swal.fire("No se pudo crear el ususario!!!", ``, "warning");
-      console.log("entro al else de redirecc");
+      // console.log("entro al else de redirecc");
     }
   }
 });
