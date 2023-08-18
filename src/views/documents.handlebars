@@ -10,7 +10,7 @@
           <div class="card-body row">
                 <form id="profilesForm" class="col-6">
                     <div class="mb-3" >
-                        <label for="formFileProfile" class="form-label">Imagen de perfil</label>
+                        <label for="formFileProfile" class="form-label">Imagen de perfil<span style="color: brown;">*</span></label>
                         <input class="form-control" type="file" id="formFileProfile" name="documento">
                         <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'profiles')" style="width: 100%;">Subir Archivo</button> 
                     </div>
@@ -18,7 +18,7 @@
                 
                 <form id="productsForm" class="col-6">
                     <div class="mb-3">
-                        <label for="formFileProduct" class="form-label">Imagen de producto</label>
+                        <label for="formFileProduct" class="form-label">Imagen de producto<span style="color: brown;">*</span></label>
                         <input class="form-control" type="file" id="formFileProduct" name="documento">
                         <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'products')" style="width: 100%;">Subir Archivo</button> 
                     </div>
@@ -26,14 +26,14 @@
                 <hr>
                 <form id="documentsidentificacionForm" class="col-6">
                     <div class="mb-3" >
-                        <label for="formFileIdentificacion" class="form-label">Documento de Identificación</label>
+                        <label for="formFileIdentificacion" class="form-label">Documento de Identificación<span style="color: brown;">*</span></label>
                         <input class="form-control" type="file" id="formFileIdentificacion" name="documento">
                          <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'documentsidentificacion')" style="width: 100%;">Subir Archivo</button> 
                     </div>
                 </form>
                 <form id="documentscomprobanteDomicilioForm" class="col-6">
                     <div class="mb-3">
-                        <label for="formFileComprobanteDomicilio" class="form-label">Comprobante de Domicilio</label>
+                        <label for="formFileComprobanteDomicilio" class="form-label">Comprobante de Domicilio<span style="color: brown;">*</span></label>
                         <input class="form-control" type="file" id="formFileComprobanteDomicilio" name="documento">
                          <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'documentscomprobanteDomicilio')" style="width: 100%;">Subir Archivo</button> 
                     </div>
@@ -41,7 +41,7 @@
                 <hr>
                 <form id="documentscomprobanteEstadoCuentaForm">
                     <div class="" style="padding-right: 25%; padding-left: 25%;">
-                        <label for="formFileComprobanteEstadoCuenta" class="form-label">Comprobante de estado de cuenta</label>
+                        <label for="formFileComprobanteEstadoCuenta" class="form-label">Comprobante de estado de cuenta<span style="color: brown;">*</span></label>
                         <input class="form-control" type="file" id="formFileComprobanteEstadoCuenta" name="documento">
                          <button class="btn btn-primary" type="button" onclick="enviarFormulario('{{id}}', 'documentscomprobanteEstadoCuenta')" style="width: 100%;">Subir Archivo</button> 
                     </div>

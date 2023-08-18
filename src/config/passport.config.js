@@ -90,14 +90,14 @@ const initializePassport = () => {
           console.log(profile);
           let user = await userModel.findOne({ email: profile._json.email });
           if (!user) {
-            let newUser = {
+            let newUser = new UserDTO({
               first_name: profile._json.name,
               last_name: "",
-              age: 18,
+              age: 999,
               email: profile._json.email,
               password: "",
-              rol: "",
-            };
+              rol: "Usuario",
+            });
 
             let result = await userModel.create(newUser);
             done(null, result);

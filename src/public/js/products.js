@@ -1,4 +1,4 @@
-console.log("Llamando a productos...");
+// console.log("Llamando a productos...");
 const socket = io();
 let currentUrl = window.location.href;
 let totalDocs = "";
@@ -24,18 +24,18 @@ let infoUsuario = "";
 window.addEventListener("load", async (event) => {
   let idLogeado = userIdLogeado.split(":");
   if (userIdLogeado || userNameLogeado) {
-    console.log("usuario logueado...");
+    // console.log("usuario logueado...");
     // Swal.fire(
     //   "Bienvenido!!!",
     //   `Iniciaste sesión como: ${userNameLogeado}`,
     //   "success"
     // );
-    console.log("Rol usuario; ", userRol.innerHTML);
+    // console.log("Rol usuario; ", userRol.innerHTML);
     if (userRol.innerHTML == "Premium") {
-      console.log("el usuario es Premium cambiando a ususario....");
+      // console.log("el usuario es Premium cambiando a ususario....");
       userRol.innerHTML = "Usuario";
     } else if (userRol.innerHTML == "Usuario") {
-      console.log("el usuario es usuaeio cambiando a Premium...");
+      // console.log("el usuario es usuaeio cambiando a Premium...");
       userRol.innerHTML = "Premium";
     } else {
       btnPanelAdminUsers.classList.remove("disabled");
@@ -54,7 +54,7 @@ window.addEventListener("load", async (event) => {
       barra.style.width = "100%";
     }
   } else {
-    console.log("no hay un usuario logeado");
+    // console.log("no hay un usuario logeado");
     await Swal.fire("No hay usuario logeado!!!", "", "info");
     window.location.replace("/login");
   }
@@ -63,9 +63,9 @@ window.addEventListener("load", async (event) => {
 btnCerrarSesion.addEventListener("click", async (event) => {
   event.preventDefault();
 
-  console.log("user Logged: ", userNameLogeado, userEmailLogeado);
+  // console.log("user Logged: ", userNameLogeado, userEmailLogeado);
   let urlAux = currentUrl.split("/api");
-  console.log(urlAux[0]);
+  // console.log(urlAux[0]);
 
   let user = {
     email: userEmailLogeado,
@@ -81,16 +81,16 @@ btnCerrarSesion.addEventListener("click", async (event) => {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       data = result;
-      console.log(data);
+      // console.log(data);
       // Manejar la respuesta del servidor
     })
     .catch((err) => {
       console.log("ERROR: ", err);
     });
 
-  console.log("resultado cerrar sesion-> ", data);
+  // console.log("resultado cerrar sesion-> ", data);
   if (data.status === "success") {
     await Swal.fire("Se cerro sesion con exito!!!", "", "info");
     window.location.replace("/login");
@@ -100,22 +100,22 @@ btnCerrarSesion.addEventListener("click", async (event) => {
 });
 
 socket.on("getListaProductos", async (data) => {
-  console.log("se van a obtener la lista de productos....");
+  // console.log("se van a obtener la lista de productos....");
   getProducts();
   socket.emit("contraResp");
 });
 
 socket.on("fin", (data) => {
-  console.log("entro a fin...");
+  // console.log("entro a fin...");
 });
 
 socket.on("getInfoUser", () => {
-  console.log("recargando info user...");
+  // console.log("recargando info user...");
   window.location.reload();
 });
 
 async function getProducts() {
-  console.log("ENTRO A GETPRODUCTS !!!!!");
+  // console.log("ENTRO A GETPRODUCTS !!!!!");
   let arregloProductos = [];
   let productos = "";
   let listaProductos = document.getElementById("listaProductos");
@@ -123,12 +123,12 @@ async function getProducts() {
     "buscarPorListaProductos"
   );
   let listaProductosBuscar = "";
-  console.log("url", currentUrl);
+  // console.log("url", currentUrl);
   let url = currentUrl;
 
   let vars = url.split("?");
-  console.log(vars[0]);
-  console.log(vars[1]);
+  // console.log(vars[0]);
+  // console.log(vars[1]);
   //let varsLimit = vars[1].split("&");
   // console.log(varsLimit);
   // let tamVars = vars.length;
@@ -136,18 +136,18 @@ async function getProducts() {
   let newUrl = "";
   if (vars[1] == undefined) {
     newUrl = currentUrl + "/productsList";
-    console.log(newUrl);
+    // console.log(newUrl);
   } else {
     newUrl = vars[0] + "/productsList?";
     newUrl = newUrl + vars[1];
-    console.log(newUrl);
+    // console.log(newUrl);
   }
 
   await fetch(newUrl)
     .then((response) => response.json())
     .then((result) => {
-      console.log(typeof result);
-      console.log(result.docs);
+      // console.log(typeof result);
+      // console.log(result.docs);
       // Manejar la respuesta del servidor
       arregloProductos = result.docs;
       limit = result.limit;
@@ -159,18 +159,18 @@ async function getProducts() {
       prevPage = result.prevPage;
       nextPage = result.nextPage;
     });
-  console.log(arregloProductos);
-  console.log(
-    totalDocs,
-    limit,
-    totalPages,
-    page,
-    pagingCounter,
-    hasPrevPage,
-    hasNextPage,
-    prevPage,
-    nextPage
-  );
+  // console.log(arregloProductos);
+  // console.log(
+  //   totalDocs,
+  //   limit,
+  //   totalPages,
+  //   page,
+  //   pagingCounter,
+  //   hasPrevPage,
+  //   hasNextPage,
+  //   prevPage,
+  //   nextPage
+  // );
 
   arregloProductos.forEach((producto) => {
     productos =
@@ -230,11 +230,11 @@ async function getProducts() {
   //Para utlNexPage =
   let urlNextPage = "";
   urlNextPage = vars[0] + "?";
-  console.log(vars);
+  // console.log(vars);
   let variables = vars[1];
   let vars1 = variables.split("&");
-  console.log(vars1);
-  console.log(vars1.indexOf(`page=${page}`));
+  // console.log(vars1);
+  // console.log(vars1.indexOf(`page=${page}`));
   let existe = vars1.includes(`page=${page}`);
   if (existe) {
     let posPage = vars1.indexOf(`page=${page}`);
@@ -243,38 +243,38 @@ async function getProducts() {
     vars1.push("page=" + nextPage);
   }
   let newVars = "";
-  console.log(vars1);
+  // console.log(vars1);
   vars1.forEach((e) => {
     newVars = newVars + e + "&";
   });
   let tamVars = newVars.length;
   newVars = newVars.slice(0, tamVars - 1);
-  console.log(newVars);
+  // console.log(newVars);
   urlNextPage = urlNextPage + newVars;
-  console.log(urlNextPage);
+  // console.log(urlNextPage);
 
   let urlPrevPage = "";
   urlPrevPage = vars[0] + "?";
-  console.log(vars);
+  // console.log(vars);
   let variablesPrev = vars[1];
   let varsPrev = variablesPrev.split("&");
-  console.log(varsPrev);
-  console.log(varsPrev.indexOf(`page=${page}`));
+  // console.log(varsPrev);
+  // console.log(varsPrev.indexOf(`page=${page}`));
   let existePrev = varsPrev.includes(`page=${page}`);
   if (existePrev) {
     let posPage = varsPrev.indexOf(`page=${page}`);
     varsPrev[posPage] = "page=" + prevPage;
   }
   let newVarsPrev = "";
-  console.log(varsPrev);
+  // console.log(varsPrev);
   varsPrev.forEach((e) => {
     newVarsPrev = newVarsPrev + e + "&";
   });
   let tamVarsPrev = newVarsPrev.length;
   newVarsPrev = newVarsPrev.slice(0, tamVarsPrev - 1);
-  console.log(newVarsPrev);
+  // console.log(newVarsPrev);
   urlPrevPage = urlPrevPage + newVarsPrev;
-  console.log(urlPrevPage);
+  // console.log(urlPrevPage);
 
   let listaBotones = "";
   let botones = document.getElementById("botones");
@@ -337,7 +337,7 @@ async function agregarProducto() {
   }
 
   if (formValues && valido) {
-    console.log(formValues[0]);
+    // console.log(formValues[0]);
     let producto = {
       title: formValues[0],
       description: formValues[1],
@@ -347,7 +347,7 @@ async function agregarProducto() {
       stock: formValues[5],
       //id: ultimoId + 1,
     };
-    console.log("en index producto: ", producto);
+    // console.log("en index producto: ", producto);
     let data = "";
     await fetch(currentUrl + "/", {
       method: "POST",
@@ -358,11 +358,10 @@ async function agregarProducto() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        // Manejar la respuesta del servidor
+        // console.log(result);
         data = result;
       });
-    console.log(data);
+    // console.log(data);
     if (data.status == "error") {
       Swal.fire(
         "No se pudo agregar el producto!!!",
@@ -379,7 +378,7 @@ async function agregarProducto() {
 }
 
 async function eliminarProducto(idEliminar) {
-  console.log("id a eliminar - ", idEliminar);
+  // console.log("id a eliminar - ", idEliminar);
   let data = "";
   let urlAux = currentUrl.split("/api");
 
@@ -392,19 +391,19 @@ async function eliminarProducto(idEliminar) {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       // Manejar la respuesta del servidor
       data = result;
     });
-  console.log("RESULTADO ADD AUT", data);
+  // console.log("RESULTADO ADD AUT", data);
   if (data.status != "error") {
-    console.log(data.infoEmailUserPremium);
+    // console.log(data.infoEmailUserPremium);
     if (data.infoEmailUserPremium) {
       let obj = {
         message: `Te informamos que el producto ${data.infoEmailUserPremium.productDeleted} que tu agregaste fue eliminado de la base`,
         subject: "Producto Eliminado!!!",
       };
-      console.log("notificando a usuario premium que se elimino un producto");
+      // console.log("notificando a usuario premium que se elimino un producto");
       Swal.fire(
         `Notificando a usuario ${data.infoEmailUserPremium.email} premium que se elimino un producto`,
         "",
@@ -424,7 +423,7 @@ async function eliminarProducto(idEliminar) {
         .catch((err) => {
           console.log("ERROR: ", err);
         });
-      console.log(data);
+      // console.log(data);
     }
     socket.emit("eliminarProducto", idEliminar);
     Swal.fire("Se elimino el producto correctamente!!!", "", "info");
@@ -440,10 +439,10 @@ async function eliminarProducto(idEliminar) {
 async function editarProducto(productId) {
   //let product = "";
 
-  console.log(productId);
+  // console.log(productId);
   let product = await obtenerProductoById(productId);
-  console.log("modtrando Product desde editar.....");
-  console.log(product);
+  // console.log("modtrando Product desde editar.....");
+  // console.log(product);
   let valido = true;
 
   //console.log(product);
@@ -482,7 +481,7 @@ async function editarProducto(productId) {
   });
 
   for (let element in formValues) {
-    console.log(formValues[element]);
+    // console.log(formValues[element]);
     if (
       formValues[element] == null ||
       formValues[element] == "" ||
@@ -506,9 +505,9 @@ async function editarProducto(productId) {
       stock: formValues[5],
       id: product.id,
     };
-    console.log("producto editado final -> ", producto);
+    // console.log("producto editado final -> ", producto);
     let urlAux = currentUrl.split("?");
-    console.log("haciendo put a url : ", urlAux[0] + "/" + productId);
+    // console.log("haciendo put a url : ", urlAux[0] + "/" + productId);
     let dataRes = "";
     await fetch(urlAux[0] + "/" + productId, {
       method: "PUT",
@@ -519,7 +518,7 @@ async function editarProducto(productId) {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         dataRes = result;
       });
     if (dataRes.status == "error") {
@@ -541,27 +540,27 @@ function enviandoValores(formValues) {
   console.log(JSON.stringify(formValues));
 }
 async function obtenerProductoById(productId) {
-  console.log("enrto a obtener producto ById ", productId);
+  // console.log("enrto a obtener producto ById ", productId);
   let product = "";
-  console.log("currentUrl en obtenerProductoById -> ", currentUrl);
+  // console.log("currentUrl en obtenerProductoById -> ", currentUrl);
   let urlAux = currentUrl.split("/api");
-  console.log("urlAux = ", urlAux);
-  console.log("haciendo fetch a -> ", urlAux[0] + "/api/products/" + productId);
+  // console.log("urlAux = ", urlAux);
+  // console.log("haciendo fetch a -> ", urlAux[0] + "/api/products/" + productId);
   await fetch(urlAux[0] + "/api/products/" + productId)
     .then((response) => response.json())
     .then((result) => {
-      console.log("Result en obtenerProductoById");
-      console.log(result);
+      // console.log("Result en obtenerProductoById");
+      // console.log(result);
       //console.log(result.docs);
       // Manejar la respuesta del servidor
       product = result;
     });
-  console.log("enviando product desde obtenerProductoById", product);
+  // console.log("enviando product desde obtenerProductoById", product);
   return product;
 }
 
 function aplicarFiltro() {
-  console.log("entro a aplicar filtro...");
+  // console.log("entro a aplicar filtro...");
   let numProductsByPage = document.getElementById("numProductsByPage").value;
   let ordenProducts = document.getElementById("ordenProducts").value;
   let buscarPorProducto = document.getElementById(
@@ -570,14 +569,14 @@ function aplicarFiltro() {
 
   // var value = e.value;
   // var text = e.options[e.selectedIndex].text;
-  console.log(
-    "FILTROOO: ",
-    numProductsByPage,
-    " -  ",
-    ordenProducts,
-    " -  ",
-    buscarPorProducto
-  );
+  // console.log(
+  //   "FILTROOO: ",
+  //   numProductsByPage,
+  //   " -  ",
+  //   ordenProducts,
+  //   " -  ",
+  //   buscarPorProducto
+  // );
   let urlFilter = "/api/products";
   let params = "?";
   if (
@@ -589,7 +588,7 @@ function aplicarFiltro() {
     params = params + `limit=${numProductsByPage}&`;
   }
   if (ordenProducts == "Ordenar:" || ordenProducts == "ninguno") {
-    console.log("ordenar es igual, es decir que no cambia");
+    // console.log("ordenar es igual, es decir que no cambia");
     params = params;
   } else {
     params = params + `sort=${ordenProducts}&`;
@@ -603,9 +602,9 @@ function aplicarFiltro() {
   } else {
     params = params + `query=${buscarPorProducto}&`;
   }
-  console.log(params);
+  // console.log(params);
   urlFilter = urlFilter + params;
-  console.log(urlFilter);
+  // console.log(urlFilter);
   window.location.replace(urlFilter + "page=1");
 }
 
@@ -617,18 +616,18 @@ async function addToCart(idProduct, product) {
   //    /:idCart/:product/:idProduct
   let idCart = cartIdLogeado.split(">");
   let urlAux = currentUrl.split("/api");
-  console.log(urlAux[0]);
-  console.log(
-    "entro a agregar producto a carrito...",
-    idCart[1],
-    "id product",
-    idProduct,
-    " product ",
-    product
-  );
+  // console.log(urlAux[0]);
+  // console.log(
+  //   "entro a agregar producto a carrito...",
+  //   idCart[1],
+  //   "id product",
+  //   idProduct,
+  //   " product ",
+  //   product
+  // );
 
   let stock = document.getElementById("stockProduct" + idProduct).innerHTML;
-  console.log(stock);
+  // console.log(stock);
   if (cantidadProducto == 0 || cantidadProducto <= 0) {
     await Swal.fire(
       "Digita valores validos!!!",
@@ -637,7 +636,7 @@ async function addToCart(idProduct, product) {
     );
   } else {
     let quantity = { quantity: cantidadProducto };
-    console.log(isNaN(idCart[1]));
+    // console.log(isNaN(idCart[1]));
     let dataRes = "";
     if (!isNaN(idCart[1])) {
       Swal.fire(
@@ -658,7 +657,7 @@ async function addToCart(idProduct, product) {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           dataRes = result;
         });
 
@@ -680,15 +679,15 @@ async function addToCart(idProduct, product) {
 function goToCart() {
   let idCart = cartIdLogeado.split(">");
   let urlAux = currentUrl.split("/api");
-  console.log(urlAux[0]);
-  console.log(idCart[1]);
+  // console.log(urlAux[0]);
+  // console.log(idCart[1]);
   let urlCart = urlAux[0] + "/api/carts/" + idCart[1].trim();
-  console.log(urlCart);
+  // console.log(urlCart);
   window.location.replace(urlCart);
 }
 
 function goToChat() {
-  console.log("redirigiendo a chat....");
+  // console.log("redirigiendo a chat....");
   let urlAux = currentUrl.split("/api");
   let urlChat = urlAux[0] + "/api/chat";
   window.location.replace(urlChat);
@@ -707,10 +706,9 @@ async function create100Products() {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       data = result;
-      console.log(data);
-      // Manejar la respuesta del servidor
+      // console.log(data);
     })
     .catch((err) => {
       console.log("ERROR: ", err);
@@ -732,7 +730,7 @@ async function changeRol() {
   let rolChange = {
     rol: userRol.innerHTML,
   };
-  console.log(userIdLogeado);
+  // console.log(userIdLogeado);
   let data;
   await fetch(`/api/users/premium/${userIdLogeado}`, {
     method: "PUT",
@@ -743,11 +741,11 @@ async function changeRol() {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       data = result;
     });
 
-  console.log(data);
+  // console.log(data);
   if (data.status == "success") {
     await Swal.fire("Tu rol se actualizo satisfactoriamente!", "", "success");
     socket.emit("rolActualizado");
@@ -758,7 +756,7 @@ async function changeRol() {
 
 function cargarDocumentos() {
   let id = userIdLogeado.split(">");
-  console.log(id);
+  // console.log(id);
   window.location.replace(`/api/users/${id[1].trim()}/documents`);
 }
 
