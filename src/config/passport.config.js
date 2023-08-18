@@ -36,10 +36,6 @@ const initializePassport = () => {
             rol,
             carts: cartsAux,
           });
-          // console.log("USERDTO = ", userToCreate);
-          let date = new Date(Date.now());
-          date = date.toLocaleString("es-CO");
-          userToCreate.last_connection = date;
           let result = await userModel.create(userToCreate);
           return done(null, result, "valid");
         } catch (err) {

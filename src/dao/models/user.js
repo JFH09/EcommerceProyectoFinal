@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
 const collection = "users";
+let date = new Date(Date.now());
+date = date.toLocaleString("es-CO");
 
 const userSchema = new mongoose.Schema({
   first_name: String,
@@ -22,7 +24,7 @@ const userSchema = new mongoose.Schema({
   fullName: String,
   last_connection: {
     type: Date,
-    default: null,
+    default: date,
   },
   documents: {
     type: [
