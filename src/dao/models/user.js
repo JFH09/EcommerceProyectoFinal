@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
   fullName: String,
   last_connection: {
     type: Date,
-    default: date,
+    default: null,
   },
   documents: {
     type: [
